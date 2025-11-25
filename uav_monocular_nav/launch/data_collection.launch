@@ -1,0 +1,10 @@
+<launch>
+  <arg name="camera_info" default="$(find uav_monocular_nav)/config/camera_info.yaml" />
+  <arg name="obstacles" default="$(find uav_monocular_nav)/config/obstacles.json" />
+  <node pkg="uav_monocular_nav" type="data_collector.py" name="data_collector" output="screen">
+    <param name="camera_info" value="$(arg camera_info)" />
+    <param name="obstacles" value="$(arg obstacles)" />
+    <param name="save_dir" value="$(env HOME)/uav_data" />
+  </node>
+  <node pkg="uav_monocular_nav" type="simple_uav_controller.py" name="simple_uav_controller" output="screen" />
+</launch>
