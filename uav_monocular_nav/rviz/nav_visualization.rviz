@@ -1,0 +1,29 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+  - Class: rviz/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/Grid
+      Name: Grid
+    - Class: rviz/Image
+      Name: Camera
+      Image Topic: /camera/rgb/image_raw
+    - Class: rviz/Marker
+      Name: Obstacles
+      Marker Topic: /uav_monocular_nav/obstacles
+    - Class: rviz/Marker
+      Name: Trajectory
+      Marker Topic: /uav_monocular_nav/trajectory
+  Global Options:
+    Fixed Frame: map
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 10
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
