@@ -8,8 +8,9 @@ from visualization_msgs.msg import Marker
 
 class SimpleUavController:
     def __init__(self):
+        state_topic = rospy.get_param("~state_topic", "/odom")
         self.goal_sub = rospy.Subscriber("/uav/goal_point", PointStamped, self.goal_cb, queue_size=1)
-        self.state_sub = rospy.Subscriber("/uav/state", Odometry, self.state_cb, queue_size=1)
+        self.state_sub = rospy.Subscriber(state_topic, Odometry, self.state_cb, queue_size=1)
         self.cmd_pub = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
         self.pose_pub = rospy.Publisher("/uav/pose_marker", Marker, queue_size=1)
         self.goal = None
