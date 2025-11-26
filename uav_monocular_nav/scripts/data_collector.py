@@ -60,6 +60,7 @@ class DataCollector:
         self.save_dir = rospy.get_param("~save_dir", os.path.expanduser("~/uav_data"))
         self.num_samples = rospy.get_param("~num_samples", 500)
         self.sample_rate = rospy.get_param("~sample_rate", 1.0)
+        state_topic = rospy.get_param("~state_topic", "/odom")
         xy_limits = rospy.get_param("~xy_limits", [-3.0, 3.0])
         z_limits = rospy.get_param("~z_limits", [0.8, 1.5])
         self.goal_bounds: Tuple[Tuple[float, float], Tuple[float, float]] = (
@@ -72,7 +73,7 @@ class DataCollector:
         os.makedirs(os.path.join(self.save_dir, "goals"), exist_ok=True)
 
         self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.image_cb, queue_size=1)
-        self.state_sub = rospy.Subscriber("/uav/state", Odometry, self.state_cb, queue_size=1)
+        self.state_sub = rospy.Subscriber(state_topic, Odometry, self.state_cb, queue_size=1)
         self.goal_pub = rospy.Publisher("/uav/goal_point", PointStamped, queue_size=1)
         self.marker_pub = rospy.Publisher("/uav_monocular_nav/obstacles", Marker, queue_size=1)
 
